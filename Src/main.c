@@ -496,7 +496,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -783,17 +783,17 @@ static void MX_FMC_Init(void)
   hsdram1.Init.InternalBankNumber = FMC_SDRAM_INTERN_BANKS_NUM_4;
   hsdram1.Init.CASLatency = FMC_SDRAM_CAS_LATENCY_3;
   hsdram1.Init.WriteProtection = FMC_SDRAM_WRITE_PROTECTION_DISABLE;
-  hsdram1.Init.SDClockPeriod = FMC_SDRAM_CLOCK_PERIOD_3;
+  hsdram1.Init.SDClockPeriod = FMC_SDRAM_CLOCK_PERIOD_2;
   hsdram1.Init.ReadBurst = FMC_SDRAM_RBURST_DISABLE;
   hsdram1.Init.ReadPipeDelay = FMC_SDRAM_RPIPE_DELAY_0;
   /* SdramTiming */
-  SdramTiming.LoadToActiveDelay = 3;
-  SdramTiming.ExitSelfRefreshDelay = 4;
-  SdramTiming.SelfRefreshTime = 2;
-  SdramTiming.RowCycleDelay = 3;
+  SdramTiming.LoadToActiveDelay = 2;
+  SdramTiming.ExitSelfRefreshDelay = 5;
+  SdramTiming.SelfRefreshTime = 3;
+  SdramTiming.RowCycleDelay = 4;
   SdramTiming.WriteRecoveryTime = 2;
-  SdramTiming.RPDelay = 1;
-  SdramTiming.RCDDelay = 1;
+  SdramTiming.RPDelay = 2;
+  SdramTiming.RCDDelay = 2;
 
   if (HAL_SDRAM_Init(&hsdram1, &SdramTiming) != HAL_OK)
   {
