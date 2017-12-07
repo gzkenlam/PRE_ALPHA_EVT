@@ -54,7 +54,7 @@
 #ifdef STROBE_COUNT_IS_3
 #define STROBE_0_TIME	(186)
 #define	STROBE_1_TIME	(220)
-#define PH_SPICLK_MHZ	(4)
+#define PH_SPICLK_MHZ	(8)
 #else
 #define STROBE_0_TIME	(186)
 #define	STROBE_1_TIME	(180)
