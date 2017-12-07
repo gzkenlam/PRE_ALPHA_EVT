@@ -533,7 +533,7 @@ uint32_t Data_Handle(uint8_t* u8RcvPtr, uint32_t u32Length){
 				}
 				if(i<0x800000){
 					if((*CurrLogPtr).u16Length < LOG_BUF_SIZE){
-						sprintf((*CurrLogPtr).cdataptr,"Not Match:%d\r\n", i);
+						sprintf((*CurrLogPtr).cdataptr,"Not Match:%d\r\n", (int)i);
 						u16Length = strlen((*CurrLogPtr).cdataptr);
 						(*CurrLogPtr).u16Length += u16Length;
 						(*CurrLogPtr).cdataptr += u16Length;
