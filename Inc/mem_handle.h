@@ -12,7 +12,7 @@
 #include "stm32f4xx_hal.h"
 #include "main.h"
 /* Macro Definitions ---------------------------------------------------------*/
-#define SDRAM_FREQ			((uint32_t)42700000/100)
+#define SDRAM_FREQ			((uint32_t)64000000/100)
 #define SDRAM_BANK_ADDR     ((uint32_t)0xC0000000)
 #define WRITE_READ_ADDR     ((uint32_t)0x0000)
 #define SDRAM_SIZE			((uint32_t)0x3ffff)
