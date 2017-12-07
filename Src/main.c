@@ -169,7 +169,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   //SDRAM_Buff_Init();
   LogBuf_Init();
-  u8Rev = 98;
+  u8Rev = 96;
   SDRAM_Initialization_Sequence(&hsdram1, &SDRAMcommand);
   HAL_GPIO_WritePin(USB_EN_GPIO_Port,USB_EN_Pin,GPIO_PIN_SET);
   HAL_Delay(500);
