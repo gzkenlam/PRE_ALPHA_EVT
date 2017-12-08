@@ -175,9 +175,11 @@ int main(void)
   HAL_Delay(500);
   sprintf((char*)u8TxBuf, "This is Pre-alpha test program Ver.0.%d\r\n", u8Rev);
   Debug_Msg_Out((char*)u8TxBuf);
-  sprintf((char*)u8TxBuf, "PH SPI port freq is %dMHz", (int)PH_SPICLK_MHZ);
+  HAL_Delay(100);
+  sprintf((char*)u8TxBuf, "PH SPI port freq is %d MHz\r\n", (int)PH_SPICLK_MHZ);
   Debug_Msg_Out((char*)u8TxBuf);
-  sprintf((char*)u8TxBuf, "SDRAM freq is %dMHz", (int)SDRAM_FREQ);
+  HAL_Delay(500);
+  sprintf((char*)u8TxBuf, "SDRAM freq is %d00 Hz\r\n", (int)SDRAM_FREQ);
   Debug_Msg_Out((char*)u8TxBuf);
   u8Temp = SDRAM_Verification(&hdma_memtomem_dma2_stream2,(uint32_t *)(&u8Image[0][0]), (uint32_t *)(SDRAM_BANK_ADDR), 32448);
   if(u8Temp){

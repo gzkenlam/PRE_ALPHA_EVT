@@ -44,7 +44,8 @@
 
 /* Exported Variables --------------------------------------------------------*/
 extern	FMC_SDRAM_CommandTypeDef SDRAMcommand;
-extern const uint8_t u8Image[1248][104];
+extern const uint8_t u8Image[1200][104];
+extern const uint8_t u8LMeasImage[1218][104];
 extern	uint8_t u8MemStatus;
 extern	uint32_t u32Page1RcvLength;
 extern	uint32_t u32Page2RcvLength;

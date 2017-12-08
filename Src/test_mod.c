@@ -45,6 +45,32 @@ void Label_Loader(uint8_t TestMod, uint32_t u32LabelCount){
 			u8PrintTestMod = 0;
 		}
 	}break;
+	case LENGTH_TEST:{
+		//Print internal save label from flash
+		if(u32LabelCount > 0 ){
+			PrintTask.u32LabelCounter += u32LabelCount;
+			if(!(EngineData.u16State & ENGINE_MTRON)){
+				//insert backfeed for 1st page
+				PrintTask.u32BackFeedSteps = DISTANCE_HEADTOTEAR;
+				PrintTask.u8SetSpd = FEED_3_IPS;
+				//PrintTask.u8SensorType = 0;
+				EngineData.u16State &= ~ENGINE_USEGAP;
+			}
+		}else{
+			if((PrintTask.u32LabelLength == 0) && (PrintTask.u32LabelCounter>0)){
+				//Task has been loaded to EngineData, and there is still task to load new data
+				PrintTask.u8DataHeadPtr = (uint8_t*)(u8LMeasImage);
+				PrintTask.u32LabelLength = 1218;
+				PrintTask.u16LabelWidth = 832;
+				//PrintTask.u8SensorType = USE_GAP_SENSOR;
+				PrintTask.u16Status |= TASK_IMAGEPRINT;
+				PrintTask.u16Status &= ~TASK_EMPTY;
+			}
+		}
+		if(!PrintTask.u32LabelCounter){
+			u8PrintTestMod = 0;
+		}
+	}break;
 	case PIXEL_TEST:{
 		if(u32LabelCount > 0 ){
 			PrintTask.u32LabelCounter += u32LabelCount;

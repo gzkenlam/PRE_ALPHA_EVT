@@ -223,7 +223,7 @@ uint32_t Data_Handle(uint8_t* u8RcvPtr, uint32_t u32Length){
 				}
 				break;
 			}
-			if((s32Value>=0) && (s32Value<=500)){
+			if((s32Value>=0) && (s32Value<=5000)){
 				if(EngineData.u16State & ENGINE_READY){
 					u8PrintTestMod = FLASH_LABEL;
 					Label_Loader(u8PrintTestMod, (uint32_t)s32Value);
@@ -252,6 +252,46 @@ uint32_t Data_Handle(uint8_t* u8RcvPtr, uint32_t u32Length){
 				}
 			}
 		}break;
+		case 19:{
+			if(HeadUpData.u8State == HEAD_OPEN){
+				if((*CurrLogPtr).u16Length < LOG_BUF_SIZE){
+					sprintf((*CurrLogPtr).cdataptr,"Head Open\r\n");
+					u16Length = strlen((*CurrLogPtr).cdataptr);
+					(*CurrLogPtr).u16Length += u16Length;
+					(*CurrLogPtr).cdataptr += u16Length;
+				}
+				break;
+			}
+			if((s32Value>=0) && (s32Value<=5000)){
+				if(EngineData.u16State & ENGINE_READY){
+					u8PrintTestMod = LENGTH_TEST;
+					Label_Loader(u8PrintTestMod, (uint32_t)s32Value);
+					EngineData.u16State &= ~ENGINE_READY;
+					EngineData.u16State |= ENGINE_START;
+					if((*CurrLogPtr).u16Length < LOG_BUF_SIZE){
+						sprintf((*CurrLogPtr).cdataptr,"Print %d Length test labels from flash\r\n",(int)s32Value);
+						u16Length = strlen((*CurrLogPtr).cdataptr);
+						(*CurrLogPtr).u16Length += u16Length;
+						(*CurrLogPtr).cdataptr += u16Length;
+					}
+				}else{
+					if((*CurrLogPtr).u16Length < LOG_BUF_SIZE){
+						sprintf((*CurrLogPtr).cdataptr,"Task handler busy\r\n");
+						u16Length = strlen((*CurrLogPtr).cdataptr);
+						(*CurrLogPtr).u16Length += u16Length;
+						(*CurrLogPtr).cdataptr += u16Length;
+					}
+				}
+			}else{
+				if((*CurrLogPtr).u16Length < LOG_BUF_SIZE){
+					sprintf((*CurrLogPtr).cdataptr,"Value out of range, 0<Lable<500\r\n");
+					u16Length = strlen((*CurrLogPtr).cdataptr);
+					(*CurrLogPtr).u16Length += u16Length;
+					(*CurrLogPtr).cdataptr += u16Length;
+				}
+			}
+		}break;
+
 		case 15:{
 			if((s32Value>=0) && (s32Value<=30)){
 				PrintTask.u8SetDensity = (uint8_t)s32Value;

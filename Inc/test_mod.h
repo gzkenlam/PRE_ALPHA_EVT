@@ -17,6 +17,7 @@
 #define PH_TEST			(4)
 #define PIXEL_TEST		(5)
 #define FENCE_TEST		(6)
+#define LENGTH_TEST		(7)
 
 /* Exported Variables --------------------------------------------------------*/
 extern	uint8_t u8PrintTestMod;
