@@ -532,7 +532,7 @@ void EngineData_Init(void){
 	EngineData.u32StepCount = 0;
 	EngineData.u32PrintLineCount = 0;
 	EngineData.u8RefcurrPWM = 199;
-	EngineData.u8Darkness = 12;
+	EngineData.u8Darkness = 14;
 	return;
 }
 
@@ -713,8 +713,10 @@ void Start_MTR(GPIO_PinState PinState){
 	HAL_GPIO_WritePin(MTR_TRQ1_GPIO_Port, MTR_TRQ1_Pin, GPIO_PIN_RESET);		//TRQ1 = 0 high limitation
 	HAL_GPIO_WritePin(MTR_STEP_GPIO_Port, MTR_STEP_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(MTR_DIR_GPIO_Port, MTR_DIR_Pin, PinState);
-	HAL_GPIO_WritePin(MTR_EN_GPIO_Port, MTR_EN_Pin, GPIO_PIN_RESET);			//Enable MTR Driver
-
+	EngineData.u8Spd = 0;
+	EngineData.u8StepPhase = 0;
+	EngineData.u8StrobeSeq = 0;
+	EngineData.u8RefcurrPWM = 199;
 	__HAL_TIM_SET_COMPARE(&htimMTRCURREF, TIM_CHANNEL_MTRCURREF, EngineData.u8RefcurrPWM);
 	//u8MTRCurrentLimitPWM = 140;
 	EngineData.u16CurrStepperPeriod = u16StepperAccTableHalf[0];
@@ -722,6 +724,7 @@ void Start_MTR(GPIO_PinState PinState){
 	EngineData.u16PrevStepperPeriod = EngineData.u16CurrStepperPeriod;
 	EngineData.u16State |= ENGINE_MTRON;
 	__HAL_TIM_SET_COUNTER(&htimStepper,0);
+	HAL_GPIO_WritePin(MTR_EN_GPIO_Port, MTR_EN_Pin, GPIO_PIN_RESET);			//Enable MTR Driver
 	HAL_TIM_Base_Start_IT(&htimStepper);
 }
 

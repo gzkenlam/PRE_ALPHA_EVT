@@ -410,7 +410,37 @@ uint32_t Data_Handle(uint8_t* u8RcvPtr, uint32_t u32Length){
 				(*CurrLogPtr).cdataptr += u16Length;
 			}
 		}break;
-
+		case 1:{
+			if(HeadUpData.u8State == HEAD_OPEN){
+				if((*CurrLogPtr).u16Length < LOG_BUF_SIZE){
+					sprintf((*CurrLogPtr).cdataptr,"Head Open\r\n");
+					u16Length = strlen((*CurrLogPtr).cdataptr);
+					(*CurrLogPtr).u16Length += u16Length;
+					(*CurrLogPtr).cdataptr += u16Length;
+				}
+				break;
+			}
+			if(EngineData.u16State & ENGINE_READY){
+				PrintTask.u8SetSpd = FEED_6_IPS;
+				PrintTask.u32ForFeedSteps = (PrintTask.u8SetSpd<<2) +1;
+				EngineData.u16State |= ENGINE_USEGAP;
+				EngineData.u16State &= ~ENGINE_READY;
+				EngineData.u16State |= ENGINE_START;
+				if((*CurrLogPtr).u16Length < LOG_BUF_SIZE){
+					sprintf((*CurrLogPtr).cdataptr,"Feed to GAP\r\n", (int)s32Value);
+					u16Length = strlen((*CurrLogPtr).cdataptr);
+					(*CurrLogPtr).u16Length += u16Length;
+					(*CurrLogPtr).cdataptr += u16Length;
+				}
+			}else{
+				if((*CurrLogPtr).u16Length < LOG_BUF_SIZE){
+					sprintf((*CurrLogPtr).cdataptr,"Task handler busy\r\n");
+					u16Length = strlen((*CurrLogPtr).cdataptr);
+					(*CurrLogPtr).u16Length += u16Length;
+					(*CurrLogPtr).cdataptr += u16Length;
+				}
+			}
+		}break;
 		case 9:{
 			if(s32Value==0){
 				if((*CurrLogPtr).u16Length < LOG_BUF_SIZE){

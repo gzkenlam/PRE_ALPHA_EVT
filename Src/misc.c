@@ -206,12 +206,8 @@ void Feed_Key_Sampling(void){
 					case 0:{
 						//feed 1 label
 						if(EngineData.u16State & ENGINE_READY){
-							PrintTask.u32ForFeedSteps = 100;
-							//PrintTask.u8SensorType = USE_GAP_SENSOR;
-							PrintTask.u8SetSpd = FEED_6_IPS;
-							EngineData.u16State |= ENGINE_USEGAP;
-							EngineData.u16State &= ~ENGINE_READY;
-							EngineData.u16State |= ENGINE_START;
+							sprintf((char*)cmd_buf,"set.1\r\n");
+							Data_Handle(cmd_buf, 7);
 						}else{
 							EngineData.u16State |= ENGINE_ERROR;
 #ifdef DEBUG_IS_ON
